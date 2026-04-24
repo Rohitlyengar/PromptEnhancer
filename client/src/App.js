@@ -3,9 +3,12 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import MainContent from "./components/layout/MainContent";
+import FeedbackDialog from "./components/layout/FeedbackDialog";
 import axios from "axios";
 
 const theme = createTheme({
@@ -70,6 +73,9 @@ function App() {
   const [lockedQuestions, setLockedQuestions] = useState(false); // Add this state to track if questions should be locked
   const [followUpAnswers, setFollowUpAnswers] = useState({});
   const [showFollowUps, setShowFollowUps] = useState(false);
+  const [promptCount, setPromptCount] = useState(0);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
 
   const [selectedSkills, setSelectedSkills] = useState({
     clarity: false,
@@ -188,6 +194,13 @@ function App() {
       setFollowUpQuestions(response.data.followUpQuestions || []);
       setShowFollowUps(true);
       
+      // Increment prompt count and show feedback every 2 prompts
+      const newCount = promptCount + 1;
+      setPromptCount(newCount);
+      if (newCount > 0 && newCount % 2 === 0) {
+        setShowFeedback(true);
+      }
+      
       // Reset follow-up answers when starting a new enhancement
       setFollowUpAnswers({});
     } catch (error) {
@@ -196,6 +209,20 @@ function App() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleFeedbackSubmit = (feedback) => {
+    console.log("User feedback submitted:", feedback);
+    // In a real app, you would send this to the server
+    
+    setShowFeedback(false);
+    setFeedbackLoading(true);
+    
+    // Display spinner for 4-6 seconds
+    const delay = Math.floor(Math.random() * (6000 - 4000 + 1)) + 4000;
+    setTimeout(() => {
+      setFeedbackLoading(false);
+    }, delay);
   };
 
   return (
@@ -236,6 +263,17 @@ function App() {
           />
         </Container>
         <Footer />
+        <FeedbackDialog
+          open={showFeedback}
+          onClose={() => setShowFeedback(false)}
+          onSubmit={handleFeedbackSubmit}
+        />
+        <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={feedbackLoading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </Box>
     </ThemeProvider>
   );
