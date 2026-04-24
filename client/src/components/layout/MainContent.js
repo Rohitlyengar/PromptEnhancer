@@ -54,7 +54,6 @@ const MainContent = ({
   error,
   models,
   selectedModel,
-  setSelectedModel,
   selectedSkills,
   handleSkillToggle,
   toggleAllSkills,
@@ -579,29 +578,11 @@ const MainContent = ({
 
               <Grid container spacing={2} sx={{ mb: 3 }}>
                 <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth size="small" sx={{ borderRadius: 2 }}>
-                    <InputLabel id="model-select-label">AI Model</InputLabel>
-                    <Select
-                      labelId="model-select-label"
-                      value={selectedModel}
-                      label="AI Model"
-                      onChange={(e) => setSelectedModel(e.target.value)}
-                      sx={{ borderRadius: 2 }}
-                    >
-                      {models.map((model) => (
-                        <MenuItem key={model.id} value={model.id}>
-                          {model.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
                   <Box sx={{ 
                     display: "flex", 
                     gap: 1, 
                     height: '100%',
-                    justifyContent: { xs: 'flex-start', sm: 'flex-end' } 
+                    justifyContent: 'flex-start' 
                   }}>
                     <Chip
                       icon={<TranslateIcon />}

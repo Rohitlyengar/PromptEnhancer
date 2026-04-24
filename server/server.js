@@ -70,7 +70,7 @@ async function applySkill(openai, skill, prompt, orderNum, langEng = false) {
   
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o", // Default to gpt-4o, can be overridden
+      model: "gpt-4.1-mini", // Default to gpt-4.1-mini, can be overridden
       messages: [
         { role: "system", content: systemMessage },
         { role: "user", content: formattedInput }
@@ -85,7 +85,7 @@ async function applySkill(openai, skill, prompt, orderNum, langEng = false) {
 }
 
 // Apply multiple skills at once using simplified instructions
-async function applySkills(openai, skillsToApply, prompt, langEng = false, model = "gpt-4o") {
+async function applySkills(openai, skillsToApply, prompt, langEng = false, model = "gpt-4.1-mini") {
   // Build a list of skills to apply
   const skillsList = Object.entries(skillsToApply)
     .filter(([_, enabled]) => enabled)

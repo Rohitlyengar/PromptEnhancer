@@ -68,7 +68,7 @@ function App() {
     { id: "gpt-3.5-turbo", name: "GPT-3.5 Flash" }
   ]);
 
-  const [selectedModel, setSelectedModel] = useState("gpt-4.1-mini");
+  const [selectedModel] = useState("gpt-4.1-mini");
   const [conversationId, setConversationId] = useState(null);
   const [followUpQuestions, setFollowUpQuestions] = useState([]);
   const [lockedQuestions, setLockedQuestions] = useState(false); // Add this state to track if questions should be locked
@@ -153,7 +153,7 @@ function App() {
         apiKey,
         conversationId,
         answers: followUpAnswers,
-        model: selectedModel,
+        model: "gpt-4.1-mini",
       });
       
       setEnhancedPrompt(response.data.finalPrompt);
@@ -192,7 +192,7 @@ function App() {
         apiKey,
         prompt: originalPrompt,
         skills: selectedSkills,
-        model: selectedModel,
+        model: "gpt-4.1-mini",
         insertPhrases: selectedPhrases,
         useEnglish,
         useSimplified,
@@ -235,7 +235,6 @@ function App() {
             error={error}
             models={models}
             selectedModel={selectedModel}
-            setSelectedModel={setSelectedModel}
             selectedSkills={selectedSkills}
             handleSkillToggle={handleSkillToggle}
             toggleAllSkills={toggleAllSkills}

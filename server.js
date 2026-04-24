@@ -249,7 +249,7 @@ async function generateFollowUpQuestions(openai, prompt, model, useEnglish = fal
   }
 
   const response = await openai.chat.completions.create({
-    model: model || "gpt-4",
+    model: model || "gpt-4.1-mini",
     messages: [
       {
         role: "system",
@@ -320,7 +320,7 @@ async function applySkill(openai, skill, prompt, orderNum, langEng, model) {
   const formattedInput = template.replace("{prompt}", prompt);
 
   const response = await openai.chat.completions.create({
-    model: model || "gpt-4",
+    model: model || "gpt-4.1-mini",
     messages: [
       { role: "system", content: systemMessage },
       { role: "user", content: formattedInput },
@@ -391,7 +391,7 @@ async function applySkills(openai, skills, prompt, langEng, model) {
     "\n[improved]\n";
 
   const response = await openai.chat.completions.create({
-    model: model || "gpt-4",
+    model: model || "gpt-4.1-mini",
     messages: [
       { role: "system", content: systemMessage },
       { role: "user", content: integratedTemplates },
@@ -495,7 +495,7 @@ app.post("/api/final-prompt", async (req, res) => {
     } else {
       // If no techniques were selected, just use the combined prompt
       const response = await openai.chat.completions.create({
-        model: model || "gpt-4",
+        model: model || "gpt-4.1-mini",
         messages: [
           {
             role: "system",

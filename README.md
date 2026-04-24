@@ -24,8 +24,8 @@ A web application that helps you enhance your prompts using various prompt engin
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/rohit/a.git
-cd a
+git clone <repository-url>
+cd PromptEnhancer
 ```
 
 2. Install server dependencies:

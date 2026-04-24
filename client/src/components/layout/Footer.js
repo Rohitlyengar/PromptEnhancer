@@ -2,14 +2,9 @@ import React from "react";
 import { 
   Box, 
   Typography, 
-  Link, 
   Container, 
-  Divider, 
-  Stack, 
-  IconButton,
   Chip
 } from "@mui/material";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 
 const Footer = () => {
@@ -70,23 +65,6 @@ const Footer = () => {
               </Typography>
             </Box>
           </Box>
-
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }} 
-            spacing={{ xs: 1, sm: 2 }}
-            alignItems="center"
-            sx={{ mb: { xs: 2, md: 0 } }}
-          >
-            <Link 
-              href="https://github.com/Rohitlyengar/PromptEnhancer" 
-              underline="hover" 
-              color="text.secondary"
-              sx={{ fontWeight: 500 }}
-            >
-              GitHub
-            </Link>
-          </Stack>
-
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Chip 
               size="small"

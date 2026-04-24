@@ -11,15 +11,12 @@ import {
   TextField,
   Link,
   Box,
-  IconButton,
-  Chip,
   Avatar,
   Container,
   useTheme,
 } from "@mui/material";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import ApiIcon from "@mui/icons-material/Api";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LockIcon from "@mui/icons-material/Lock";
 
@@ -85,23 +82,6 @@ const Header = ({ apiKey, onApiKeyChange }) => {
           <Box sx={{ flexGrow: 1 }} />
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <IconButton
-              color="primary"
-              component={Link}
-              href="https://github.com/Rohitlyengar/PromptEnhancer"
-              target="_blank"
-              rel="noopener"
-              size="medium"
-              sx={{ 
-                border: '1px solid',
-                borderColor: 'divider',
-                borderRadius: 2,
-                p: 1
-              }}
-            >
-              <GitHubIcon />
-            </IconButton>
-
             <Button
               onClick={handleOpenDialog}
               variant={apiKey ? "outlined" : "contained"}
