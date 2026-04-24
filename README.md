@@ -10,8 +10,8 @@ A web application that helps you enhance your prompts using various prompt engin
 - Support for multiple OpenAI models
 - Option to force English output
 - Simplified mode for faster processing
-- Local storage of API key
 - Modern and responsive UI
+- Environment-based API key management
 
 ## Prerequisites
 
@@ -47,6 +47,7 @@ cd ..
 ```
 NODE_ENV=development
 PORT=5000
+OPENAI_API_KEY=your_openai_api_key_here
 ```
 
 ## Usage
@@ -61,11 +62,9 @@ This will start both the backend server (on port 5000) and the frontend developm
 
 2. Open your browser and navigate to `http://localhost:3000`
 
-3. Enter your OpenAI API key in the settings dialog
+3. Enter your prompt and select the desired enhancement techniques
 
-4. Enter your prompt and select the desired enhancement techniques
-
-5. Click "Enhance Prompt" to get the improved version
+4. Click "Enhance Prompt" to get the improved version
 
 ## Available Techniques
 
@@ -94,6 +93,24 @@ This will start both the backend server (on port 5000) and the frontend developm
 - Be Formal
 - Be Casual
 - Be Structured
+
+## Docker
+
+You can also run the application using Docker:
+
+1. Build the Docker image:
+
+```bash
+docker build -t prompt-enhancer .
+```
+
+2. Run the Docker container, passing your OpenAI API key as an environment variable:
+
+```bash
+docker run -p 5000:5000 -e OPENAI_API_KEY=your_actual_api_key_here prompt-enhancer
+```
+
+The application will be available at `http://localhost:5000`.
 
 ## Contributing
 
