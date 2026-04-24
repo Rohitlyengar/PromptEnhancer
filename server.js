@@ -35,7 +35,6 @@ const conversations = new Map();
 app.post("/api/enhance", async (req, res) => {
   try {
     const {
-      apiKey,
       prompt,
       skills,
       model,
@@ -45,8 +44,10 @@ app.post("/api/enhance", async (req, res) => {
       conversationId,
     } = req.body;
 
+    const apiKey = process.env.OPENAI_API_KEY;
+
     if (!apiKey) {
-      return res.status(400).json({ error: "API key is required" });
+      return res.status(500).json({ error: "OpenAI API key is not configured on the server" });
     }
 
     if (!prompt) {
@@ -187,10 +188,12 @@ app.post("/api/enhance", async (req, res) => {
 // New endpoint for follow-up questions
 app.post("/api/follow-up", async (req, res) => {
   try {
-    const { apiKey, conversationId, answer, model } = req.body;
+    const { conversationId, answer, model } = req.body;
+
+    const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      return res.status(400).json({ error: "API key is required" });
+      return res.status(500).json({ error: "OpenAI API key is not configured on the server" });
     }
 
     if (!conversationId || !conversations.has(conversationId)) {
@@ -437,11 +440,17 @@ if (process.env.NODE_ENV !== "production") {
 // Final prompt endpoint
 app.post("/api/final-prompt", async (req, res) => {
   try {
-    const { apiKey, conversationId, answers, model } = req.body;
+    const { conversationId, answers, model } = req.body;
     
+    const apiKey = process.env.OPENAI_API_KEY;
+
     // Validate inputs
-    if (!apiKey || !conversationId || !answers) {
+    if (!conversationId || !answers) {
       return res.status(400).json({ error: "Missing required parameters" });
+    }
+    
+    if (!apiKey) {
+      return res.status(500).json({ error: "OpenAI API key is not configured on the server" });
     }
     
     if (!conversations.has(conversationId)) {

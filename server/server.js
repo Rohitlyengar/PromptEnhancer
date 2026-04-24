@@ -127,10 +127,12 @@ async function applySkills(openai, skillsToApply, prompt, langEng = false, model
 
 // API endpoint for enhancing prompts
 app.post('/api/enhance', async (req, res) => {
-  const { apiKey, prompt, model, skills, phrases, useEnglish, useSimplified } = req.body;
+  const { prompt, model, skills, phrases, useEnglish, useSimplified } = req.body;
   
+  const apiKey = process.env.OPENAI_API_KEY;
+
   if (!apiKey) {
-    return res.status(400).json({ error: 'API key is required' });
+    return res.status(500).json({ error: 'OpenAI API key is not configured on the server' });
   }
   
   if (!prompt) {

@@ -52,10 +52,6 @@ const theme = createTheme({
 });
 
 function App() {
-  const [apiKey, setApiKey] = useState(
-    localStorage.getItem("openai_api_key") ||
-      process.env.REACT_APP_OPENAI_API_KEY
-  );
   const [originalPrompt, setOriginalPrompt] = useState("");
   const [enhancedPrompt, setEnhancedPrompt] = useState("");
   const [loading, setLoading] = useState(false);
@@ -101,12 +97,6 @@ function App() {
   const [useEnglish, setUseEnglish] = useState(false);
   const [useSimplified, setUseSimplified] = useState(true);
 
-  // Handle API key change
-  const handleApiKeyChange = (newKey) => {
-    setApiKey(newKey);
-    localStorage.setItem("openai_api_key", newKey);
-  };
-
   // Handle skill toggle
   const handleSkillToggle = (skill) => {
     setSelectedSkills((prev) => ({
@@ -150,7 +140,6 @@ function App() {
     
     try {
       const response = await axios.post("/api/final-prompt", {
-        apiKey,
         conversationId,
         answers: followUpAnswers,
         model: "gpt-4.1-mini",
@@ -167,11 +156,6 @@ function App() {
   
   // Enhance the prompt
   const enhancePrompt = async () => {
-    if (!apiKey) {
-      setError("Please enter your OpenAI API key first");
-      return;
-    }
-
     if (!originalPrompt) {
       setError("Please enter a prompt to enhance");
       return;
@@ -189,7 +173,6 @@ function App() {
     try {
       console.log("Sending enhance request with prompt:", originalPrompt);
       const response = await axios.post("/api/enhance", {
-        apiKey,
         prompt: originalPrompt,
         skills: selectedSkills,
         model: "gpt-4.1-mini",
@@ -225,7 +208,7 @@ function App() {
           minHeight: "100vh",
         }}
       >
-        <Header apiKey={apiKey} onApiKeyChange={handleApiKeyChange} />
+        <Header />
         <Container maxWidth="xl" sx={{ flexGrow: 1, py: 4 }}>
           <MainContent
             originalPrompt={originalPrompt}
